@@ -1,25 +1,46 @@
-import logo from './logo.svg';
+import React from 'react';
+import Table from './components/Table';
 import './App.css';
 
-function App() {
+const Murderers = [
+  'פרופ\' שזיפי',
+  'גברת רקיע',
+  'גברת שני',
+  'סא"ל חרדלי',
+  'אדון גרין',
+  'דוקטור אורכידאה'
+];
+
+const MurderWeapons = [
+  'חבל',
+  'מוט ברזל',
+  'אקדח',
+  'מפתח צינורות',
+  'פגיון',
+  'פמוט'
+];
+
+const Rooms = [
+  'מסדרון',
+  'סלון',
+  'ספרייה',
+  'חדר ביליארד',
+  'אולם נשפים',
+  'חדר אוכל',
+  'מטבח',
+  'חדר העבודה',
+  'חממה'
+]
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Table rowNum={1}/>
+      <Table rowNum={6} texts={Murderers}/>
+      <Table rowNum={6} texts={MurderWeapons}/>
+      <Table rowNum={9} texts={Rooms}/>
     </div>
   );
-}
+};
 
 export default App;
