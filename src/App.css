@@ -8,8 +8,25 @@
   direction: rtl;
 }
 
+.fixed-table {
+  position: fixed;
+  top: 0;
+  justify-self: center;
+  padding-bottom: 10px;
+  /* width: 100%; */
+  background-color: blue;
+  z-index: 1000; /* Ensure it is above other content */
+}
+
+.scrolling-tables {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 80px;
+}
 table {
-  border-collapse: separate;
   border-spacing: 10px;
   background-color: blue;
+  margin: 10px; 
 }

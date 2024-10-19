@@ -1,26 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const Cell = ({ isTitle, title }) => {
-  const [content, setContent] = useState(title ?? '');
+const Symbols = ['X', '/', 'O', '✔'];
+const Cell = ({ isTitle, title, rowIndex, colIndex, onContentChange }) => {
+  const label = title !== '' && typeof title === 'number' ? Symbols[title] : undefined;
+  const [content, setContent] = useState(label ?? title ?? '');
+  const [contentId, setContentId] = useState((label && title) || -1);
   const textareaRef = useRef(null);
 
   const handleClick = () => {
-    switch (content) {
-      case '':
-        setContent('X');
-        break;
-      case 'X':
-        setContent('✔');
-        break;
-      case '✔':
-        setContent('O');
-        break;
-      case 'O':
-        setContent('');
-        break;
-      default:
-        setContent('');
-    }
+    const newContentId = (contentId + 1) % (Symbols.length + 1);
+    const newContent = Symbols[newContentId] ?? '';
+    setContent(newContent);
+    setContentId(newContentId);
+    onContentChange(rowIndex, colIndex, newContent, newContentId);
   };
 
   useEffect(() => {
@@ -49,20 +41,23 @@ const Cell = ({ isTitle, title }) => {
         <textarea
           ref={textareaRef}
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e) => {
+            setContent(e.target.value);
+            onContentChange(rowIndex, colIndex, e.target.value);
+          }}
           style={{
             width: '100%',
             backgroundColor: 'transparent',
             border: 'none',
             wordWrap: 'break-word',
             resize: 'none',
-            fontFamily: 'Arial',
-            fontWeight: 'bold',
-            fontSize: '11px',
+            fontFamily: 'DejaVu Sans Mono',
+            fontSize: '12px',
             overflow: 'hidden',
             textAlign: 'center',
             display: 'block',
             boxSizing: 'border-box',
+            fontWeight: isTitle ? 'bold' : 'normal',
           }}
         />
       ) : (
